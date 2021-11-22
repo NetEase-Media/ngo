@@ -1,0 +1,20 @@
+service:
+  appName: newsclient-omad-go
+  clusterName: newsclient-omad-go-docker-cm_test
+httpServer:
+  port: 12001
+  mode: debug
+xxljob:
+  enabled: true
+  serverAddr: http://127.0.0.1:8080/xxl-job-admin
+  RegistryKey: badexecutor
+  LogDir: "./xxllog"
+log:
+  - name: default
+    path: ./log
+    level: info
+    format: txt
+    errorPath: ./error
+pprof:
+  switch: true
+  port: 12002

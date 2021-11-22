@@ -1,0 +1,28 @@
+service:
+  serviceName: newsclient-omad-go
+  appName: newsclient-omad-go
+  clusterName: newsclient-omad-go-docker-cm_test
+httpServer:
+  port: 9090
+  mode: debug
+log:
+  path: ./log
+  level: debug
+  format: txt
+  errorPath: ./error
+configImports:
+  - data.properties
+  - db.yaml
+  - kafka.yaml
+tracer:
+  udpHost: 169.254.169.253
+  udpPort: 6831
+circuitbreaker:
+  rules:
+    - resource: count # 5秒内错误3次以上会熔断，恢复时间0.5秒
+      strategy: 2
+      retryTimeoutMs: 500
+      minRequestAmount: 3
+      statIntervalMs: 5000
+      maxAllowedRtMs: 10
+      threshold: 2.0
