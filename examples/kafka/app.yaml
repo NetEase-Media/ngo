@@ -1,0 +1,32 @@
+service:
+  appName: ngo-demo
+  clusterName: ngo-demo-local
+kafka: # 本地自行安装kafka，或者通过测试环境
+  - name: k1
+    addr:
+      - 127.0.0.1:9092
+    version: 0.11.0.2
+    dialTimeout: 5s
+    readTimeout: 5s
+    writeTimeout: 5s
+    metadata:
+      retries: 2
+      timeout: 10s
+    consumer:
+      group: ngoexamplekafkaqueue
+      enableAutoCommit: false
+      autoCommitInterval: 1s
+      initialOffset: -1 # OffsetNewest=-1  OffsetNewest=-2
+      sessionTimeout: 10s
+      minFetchBytes: 1
+      maxFetchBytes: 0 # 无限制
+      maxFetchWait: 250ms
+      retries: 1
+    producer:
+      maxMessageBytes: 1000000
+      acks: 1 # NoResponse = 0   WaitForLocal  = 1  WaitForAll = -1
+      timeout: 10s
+      retries: 3
+      maxFlushBytes: 0
+      maxFlushMessages: 0
+      flushFrequency: 0

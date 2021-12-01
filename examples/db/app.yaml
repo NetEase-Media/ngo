@@ -1,0 +1,11 @@
+service:
+  appName: ngo-demo
+  clusterName: ngo-demo-local
+db:
+  - name: newsclient
+    url: 3gteamuser:newsclient2013@)!#@tcp(bj-mobile-test-cmpri-14116.rds.cn-east-beta1.internal.:3306)/newsclient?parseTime=True&loc=Local
+    maxIdleCons: 10
+    maxOpenCons: 100
+    connMaxLifetime: 1000s
+    connMaxIdleTime: 60s
+    debug: false

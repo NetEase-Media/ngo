@@ -1,0 +1,56 @@
+# https://golangci-lint.run/usage/configuration/
+run:
+  timeout: 5m
+  issue-exit-code: 100
+  skip-dirs-use-default: false
+  skip-dirs:
+    - (^|/)vendor($|/)
+#    - (^|/)third_party($|/)
+#    - (^|/)testdata($|/)
+#    - (^|/)examples($|/)
+#    - (^|/)Godeps($|/)
+#    - (^|/)builtin($|/)
+linters:
+  disable-all: true  # 关闭其他linter
+  enable:            # 下面是开启的linter列表，之后的英文注释介绍了相应linter的功能
+    - bodyclose
+    - deadcode
+    - depguard
+    - dogsled
+#    - errcheck
+    - gochecknoinits
+    - goconst
+    - gocritic
+    - gocyclo
+    - gofmt
+    - goimports
+    - gosec
+    - gosimple
+#    - govet
+    - ineffassign
+    - exportloopref
+    - staticcheck
+    - typecheck
+    - unconvert
+    - unparam
+    - varcheck
+    - godox
+    - structcheck
+
+linters-settings:
+  gocognit:
+    # minimal code complexity to report, 30 by default (but we recommend 10-20)
+    min-complexity: 10
+  gocyclo:
+    # minimal code complexity to report, 30 by default (but we recommend 10-20)
+    min-complexity: 10
+  govet:            # 对于linter govet，我们手动开启了它的某些扫描规则
+    check-shadowing: true
+    check-unreachable: true
+    check-rangeloops: true
+    check-copylocks: true
+issues:
+  # Maximum issues count per one linter. Set to 0 to disable. Default is 50.
+  max-issues-per-linter: 0
+  # Maximum count of issues with the same text. Set to 0 to disable. Default is 3.
+  max-same-issues: 0

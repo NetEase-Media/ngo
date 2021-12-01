@@ -1,0 +1,13 @@
+service:
+  appName: ngo-demo
+  clusterName: ngo-demo-local
+redis:
+  - name: redis01
+    connType: client
+    addr: 127.0.0.1:6379
+    password: 123456
+    db: 0
+dlock:
+  # 建议3个集群，测试没资源，这里只加了一个
+  pools:
+    - redis01
