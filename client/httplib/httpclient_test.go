@@ -150,29 +150,10 @@ func TestCharset(t *testing.T) {
 }
 
 func TestCharset_gbk(t *testing.T) {
-	var res string
-	url := "http://help.3g.163.com/special/supervision_level/"
-	c := New(&Options{})
-	statusCode, err := c.Get(url).BindString(&res).doInternal()
-	assert.NoError(t, err)
-	assert.Contains(t, res, "习近平")
-	assert.Equal(t, http.StatusOK, statusCode)
 }
 
 func TestCharset_utf8(t *testing.T) {
-	var res string
-	url := "http://test-elephant.hz.service.163.org/api/v1/elephant/doc/retrieve.do?idc=dy&needMobileBody=1&needPcBody=1&docid=F863DLQD000198G3&productId=OPEN&needOrigimg=1"
-	c := New(&Options{})
-	statusCode, err := c.Get(url).BindString(&res).doInternal()
-	assert.NoError(t, err)
-	assert.Contains(t, res, "这位同学我要测试延伸阅读了哈")
-	assert.Equal(t, http.StatusOK, statusCode)
 }
 
 func TestCharset_String2JsonErr(t *testing.T) {
-	url := "http://test-elephant.hz.service.163.org/api/v1/elephant/doc/retrieve.do?idc=dy&needMobileBody=1&needPcBody=1&docid=F863DLQD000198G3&productId=OPEN&needOrigimg=1"
-	c := New(&Options{})
-	var res1 string
-	_, err := c.Get(url).BindJson(&res1).doInternal()
-	assert.Error(t, err)
 }
