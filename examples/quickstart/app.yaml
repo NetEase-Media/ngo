@@ -1,3 +1,3 @@
 service:
-  appName: ngo-demo
-  clusterName: ngo-demo-local
+  appName: ngo-demo-1
+  clusterName: ngo-demo-local-1
