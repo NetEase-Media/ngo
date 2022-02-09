@@ -1,11 +1,11 @@
 # [Ngo](https://github.com/NetEase-Media/ngo)
 
 ## 简介
-Ngo是一个类似Java Spring Boot的框架，全部使用Go语言开发，主要目标是：
+Ngo是由网易传媒基础技术团队开源的一个类似Java Spring Boot的框架，全部使用Go语言开发，主要目标是：
 - 提供比原有Java框架更高的性能和更低的资源占用率
 - 尽量为业务开发者提供所需的全部工具库
 - 自动加载配置和初始化程序环境，开发者能直接使用各种库
-- 与线上的健康检查、运维接口等运行环境匹配，无需用户手动开发配置
+- 提供预置的健康检查、上线、下线、状态查看等接口
 
 ## 使用
 使用 `go get -u github.com/NetEase-Media/ngo` 命令下载安装
@@ -82,7 +82,6 @@ service:
     * [分布式锁](docs/dlock.md)
 * [定时任务]()
     * [cron定时任务](docs/cron.md)
-    * [k8s job](docs/k8sjob.md)
     * [xxljob](docs/xxljob.md)
 * [工具](docs/util.md)
 
