@@ -1,0 +1,15 @@
+service:
+  serviceName: newsclient-omad-go
+  appName: newsclient-omad-go
+  clusterName: newsclient-omad-go-docker-cm_test
+httpServer:
+  port: 9090
+  mode: debug
+log:
+  path: ./log
+  level: debug
+  format: txt
+  errorPath: ./error
+job:
+  centerUrl: http://127.0.0.1:9090
+  namespace: maomao
