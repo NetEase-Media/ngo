@@ -60,6 +60,13 @@ func (w *Writer) WriteHeader(code int) {
 	w.writeHeader(code)
 }
 
+func (w *Writer) WriteHeaderNow() {
+}
+
+func (w *Writer) Written() bool {
+	return w.body != nil && w.body.Len() > 0
+}
+
 func (w *Writer) writeHeader(code int) {
 	w.wroteHeaders = true
 	w.code = code
