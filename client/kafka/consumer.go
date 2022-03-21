@@ -154,6 +154,12 @@ func newConsumerConfig(opt *Options) (*sarama.Config, error) {
 	config.Net.ReadTimeout = opt.ReadTimeout
 	config.Net.WriteTimeout = opt.WriteTimeout
 
+	config.Net.SASL.Enable = opt.SASL.Enable
+	config.Net.SASL.Mechanism = opt.SASL.Mechanism
+	config.Net.SASL.User = opt.SASL.User
+	config.Net.SASL.Password = opt.SASL.Password
+	config.Net.SASL.Handshake = opt.SASL.Handshake
+
 	config.Metadata.Retry.Max = opt.Metadata.Retries
 	config.Metadata.Timeout = opt.Metadata.Timeout
 
