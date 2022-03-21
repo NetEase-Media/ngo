@@ -40,6 +40,44 @@ type Options struct {
 	DialTimeout     time.Duration
 	ReadTimeout     time.Duration
 	WriteTimeout    time.Duration
+	SASL            struct {
+		// Whether or not to use SASL authentication when connecting to the broker
+		// (defaults to false).
+		Enable bool
+		// SASLMechanism is the name of the enabled SASL mechanism.
+		// Possible values: OAUTHBEARER, PLAIN (defaults to PLAIN).
+		Mechanism sarama.SASLMechanism
+		// Version is the SASL Protocol Version to use
+		// Kafka > 1.x should use V1, except on Azure EventHub which use V0
+		Version int16
+		// Whether or not to send the Kafka SASL handshake first if enabled
+		// (defaults to true). You should only set this to false if you're using
+		// a non-Kafka SASL proxy.
+		Handshake bool
+		// AuthIdentity is an (optional) authorization identity (authzid) to
+		// use for SASL/PLAIN authentication (if different from User) when
+		// an authenticated user is permitted to act as the presented
+		// alternative user. See RFC4616 for details.
+		AuthIdentity string
+		// User is the authentication identity (authcid) to present for
+		// SASL/PLAIN or SASL/SCRAM authentication
+		User string
+		// Password for SASL/PLAIN authentication
+		Password string
+		// authz id used for SASL/SCRAM authentication
+		SCRAMAuthzID string
+		// SCRAMClientGeneratorFunc is a generator of a user provided implementation of a SCRAM
+		// client used to perform the SCRAM exchange with the server.
+		SCRAMClientGeneratorFunc func() sarama.SCRAMClient
+		// TokenProvider is a user-defined callback for generating
+		// access tokens for SASL/OAUTHBEARER auth. See the
+		// AccessTokenProvider interface docs for proper implementation
+		// guidelines.
+		TokenProvider sarama.AccessTokenProvider
+
+		GSSAPI sarama.GSSAPIConfig
+	}
+
 	Metadata        struct {
 		Retries int
 		Timeout time.Duration

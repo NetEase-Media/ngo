@@ -9,6 +9,12 @@ kafka: # 本地自行安装kafka，或者通过测试环境
     dialTimeout: 5s
     readTimeout: 5s
     writeTimeout: 5s
+    #    sasl:
+    #      enable: true
+    #      user: xxx
+    #      password: xxx
+    #      mechanism: PLAIN
+    #      handshake: true
     metadata:
       retries: 2
       timeout: 10s
