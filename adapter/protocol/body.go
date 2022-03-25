@@ -40,14 +40,25 @@ func (b *HttpBody) GetError() *Error {
 
 // JsonBody 生成成功回复的http code和body
 func JsonBody(data interface{}) (statusCode int, body *HttpBody) {
-	return http.StatusOK, &HttpBody{
-		Code:    0,
-		Message: "成功",
-		Data:    data,
-	}
+	return Success(data)
 }
 
 // Success 业务处理成功
 func Success(data interface{}) (statusCode int, body *HttpBody) {
-	return JsonBody(data)
+	return Response(http.StatusOK, 0, "成功", data)
 }
+
+// Result 业务处理结果
+func Result(code int, message string, data interface{}) (statusCode int, body *HttpBody) {
+	return Response(http.StatusOK, code, message, data)
+}
+
+// Response 通用业务处理
+func Response(status int, code int, message string, data interface{}) (statusCode int, body *HttpBody) {
+	return status, &HttpBody{
+		Code:    code,
+		Message: message,
+		Data:    data,
+	}
+}
+
