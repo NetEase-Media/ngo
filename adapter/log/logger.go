@@ -51,14 +51,36 @@ func Logger() *NgoLogger {
 }
 
 func (l *NgoLogger) WithField(key string, value interface{}) *NgoLogger {
-	var data = []interface{}{key, value}
+	if e, ok := l.log.(*logrus.Entry); ok {
+		if v, ok := e.Data[DataKey]; ok {
+			e.Data[DataKey] = append(v.([]interface{}), key, value)
+			return &NgoLogger{
+				log: e,
+			}
+		}
+	}
+
+	data := make([]interface{}, 0, 16)
+	data = append(data, key, value)
 	return &NgoLogger{
 		log: l.log.WithField(DataKey, data),
 	}
 }
 
 func (l *NgoLogger) WithFields(key1 string, value1 interface{}, key2 string, value2 interface{}, kvs ...interface{}) *NgoLogger {
-	var data = make([]interface{}, 0, 4+len(kvs))
+	if e, ok := l.log.(*logrus.Entry); ok {
+		if v, ok := e.Data[DataKey]; ok {
+			e.Data[DataKey] = append(v.([]interface{}), key1, value1, key2, value2)
+			if len(kvs) > 0 {
+				e.Data[DataKey] = append(e.Data[DataKey].([]interface{}), kvs...)
+			}
+			return &NgoLogger{
+				log: e,
+			}
+		}
+	}
+
+	data := make([]interface{}, 0, 4+len(kvs)+8)
 	data = append(data, key1, value1, key2, value2)
 	if len(kvs) > 0 {
 		data = append(data, kvs...)
@@ -126,9 +148,15 @@ func (l *NgoLogger) Panic(args ...interface{}) {
 
 func (l *NgoLogger) withError(args ...interface{}) *NgoLogger {
 	if len(args) > 0 {
-		if e, ok := args[len(args)-1].(error); ok {
+		if ex, ok := args[len(args)-1].(error); ok {
+			if e, ok := l.log.(*logrus.Entry); ok {
+				return &NgoLogger{
+					log: e.WithError(ex),
+				}
+			}
+
 			return &NgoLogger{
-				log: l.log.WithError(e),
+				log: l.log.WithError(ex),
 			}
 		}
 	}
