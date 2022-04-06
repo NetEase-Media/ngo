@@ -52,3 +52,10 @@ func GetAllClients() []*Client {
 	}
 	return clients
 }
+
+func CloseAllClients() {
+	clients := GetAllClients()
+	for _, v := range clients {
+		v.Close()
+	}
+}

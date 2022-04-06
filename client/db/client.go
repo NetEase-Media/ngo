@@ -95,6 +95,12 @@ func NewClient(opt *Options) (*Client, error) {
 	return client, nil
 }
 
+func (client *Client) Close() {
+	if db, err := client.DB.DB(); err == nil {
+		db.Close()
+	}
+}
+
 func (client *Client) Trace(context context.Context, f func() *gorm.DB) (tx *gorm.DB) {
 	span, ctx := opentracing.StartSpanFromContext(context, "gorm", ext.SpanKindRPCClient)
 	oldContext := client.DB.Statement.Context
