@@ -1,9 +1,0 @@
-service:
-  appName: ngo-demo
-  clusterName: ngo-demo-local
-httpServer:
-  middlewares:
-    accesslog:
-      path: ./log
-      noFile: false
-      pattern: '%h %l %u %{%Y-%m-%d %f}t "%r%q" %s %b "%{Referer}i" "%{User-Agent}i" %D'

@@ -1,3 +1,0 @@
-service:
-  appName: ngo-demo
-  clusterName: ngo-demo-local
