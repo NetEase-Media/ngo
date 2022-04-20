@@ -1,0 +1,197 @@
+service:
+  appName: ngo
+  clusterName: ngo-online
+httpServer:
+  port: 8080
+  mode: debug
+  shutdownTimeout: 10s
+  middlewares:
+    accesslog:
+      enabled: true
+      pattern: '%h %l %u %t "%r" %s %b "%{Referer}i" "%{User-Agent}i" %D'
+      path: ./log
+      fileName: access.log
+      noFile: true
+      maxAge: 7
+      maxBackups: 7
+      maxSize: 1024
+      compress: false
+    jwtAuth:
+      enabled: false
+      authHeader: Authorization
+      tokenType: Bearer
+      accessTokenExpiresIn: 3600
+      refreshTokenExpiresIn: 7200
+      encryption: HS256
+      oidc:
+        clientId: xxxxxxxxx
+        clientSecret: xxxxxxxxx
+        encryption: HS256
+      ignorePaths:
+        - /xxx
+    urlMetrics:
+      enabled: true
+      originalPath: false
+log:
+  - name: default
+    level: info
+    packageLevel:
+      - gorm.io/gorm: error
+    path: ./log
+    errorPath: ./error
+    fileName: ngo
+    writableStack: false
+    format: txt
+    noFile: true
+    maxAge: 7
+    maxBackups: 7
+    maxSize: 1024
+    compress: false
+db:
+  - name: test
+    type: mysql
+    url: root:@tcp(127.0.0.1:3306)/test?charset=utf8mb4&parseTime=True&loc=Local
+    maxIdleCons: 10
+    maxOpenCons: 10
+    connMaxLifetime: 1000s
+    connMaxIdleTime: 60s
+httpClient:
+  noDefaultUserAgentHeader: true
+  maxConnsPerHost: 41
+  maxIdleConnDuration: 50s
+  maxConnDuration: 10s
+  maxIdemponentCallAttempts: 55
+  readBufferSize: 88
+  writeBufferSize: 128
+  readTimeout: 4s
+  writeTimeout: 5s
+  maxResponseBodySize: 23
+  maxConnWaitTimeout: 10
+redis:
+  - name: client1
+    connType: client
+    addr: 1.1.1.1
+    username: test1
+    password: 66666
+    db: 0
+    maxRetries: 3
+    minRetryBackoff: 2s
+    maxRetryBackoff: 5s
+    dialTimeout: 5s
+    readTimeout: 10s
+    writeTimeout: 6s
+    poolSize: 20
+    minIdleConns: 10
+    maxConnAge: 10m
+    poolTimeout: 10s
+    idleTimeout: 15s
+    idleCheckFrequency: 3s
+  - name: cluster1
+    connType: cluster
+    addr:
+      - 20.1.1.1
+      - 20.1.1.2
+      - 20.1.1.3
+    username: test3
+    password: 888888
+    maxRetries: 5
+    minRetryBackoff: 20s
+    maxRetryBackoff: 50s
+    dialTimeout: 5s
+    readTimeout: 10s
+    writeTimeout: 6s
+    poolSize: 20
+    minIdleConns: 10
+    maxConnAge: 10m
+    poolTimeout: 10s
+    idleTimeout: 15s
+    idleCheckFrequency: 1s
+memcache:
+  - name: m1
+    timeout: 2000
+    maxIdleConns: 2
+    addr:
+      - 127.0.0.1:99
+kafka:
+  - name: k1
+    addr:
+      - 10.1.1.1:123
+      - 10.1.1.2:123
+    version: 2.1.0
+    dialTimeout: 30s
+    readTimeout: 30s
+    writeTimeout: 30s
+    metadata:
+      retries: 3
+      timeout: 60s
+    consumer:
+      group: g1
+      enableAutoCommit: true
+      autoCommitInterval: 1s
+      initialOffset: -1 # OffsetNewest=-1  OffsetOldest=-2
+      sessionTimeout: 10s
+      minFetchBytes: 1
+      defaultFetchBytes: 1048576 #1M
+      maxFetchBytes: 0 # 无限制
+      maxFetchWait: 250ms
+      retries: 3
+    producer:
+      maxMessageBytes: 1000000
+      acks: 1 # NoResponse = 0   WaitForLocal  = 1  WaitForAll = -1
+      timeout: 10s
+      retries: 3
+      maxFlushBytes: 0
+      maxFlushMessages: 0
+      flushFrequency: 0
+dlock:
+  pools:
+    - client1
+    - cluster1
+sentinel:
+  circuitbreakerRules:
+    - resource: count
+      strategy: 2
+      retryTimeoutMs: 30
+      minRequestAmount: 1
+      statIntervalMs: 5000
+      maxAllowedRtMs: 10
+      threshold: 1.0
+    - resource: ratio
+      strategy: 1
+      retryTimeoutMs: 30
+      minRequestAmount: 10
+      statIntervalMs: 5000
+      maxAllowedRtMs: 10
+      threshold: 1.0
+  flowRules:
+  hotspotRules:
+  isolationRules:
+  systemRules:
+pprof:
+  switch: false
+  port: 8899
+multicache:
+  - type: local
+    priority: 0
+    strategy: simple
+    onload: false
+  - type: redis
+    priority: 1
+    defaultRedis: client1
+zookeeper:
+  - name: client1
+    addr:
+      - 127.0.0.1:2181
+    sessionTimeout: 10s
+tracing:
+  enabled: true
+  type: pinpoint
+  pinpoint:
+    applicationName: ngo
+    collector:
+      host: 1.1.1.1
+      agentPort: 31440
+      spanPort: 31226
+      statPort: 31950
+    sampling:
+      rate: 1  # 100%

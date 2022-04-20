@@ -4,6 +4,8 @@ SCRIPT_DIR = $(shell pwd)/etc/script
 PKG_LIST   = $(shell go list ./... | grep -v /vendor/ | grep -v /examples)
 
 lint_code: ## Lint the files
+	export REVIEWDOG_INSECURE_SKIP_VERIFY=true; \
+	reviewdog -reporter=gitlab-mr-discussion
 
 dep: ## Get the dependencies
 	go mod download

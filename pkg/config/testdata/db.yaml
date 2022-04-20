@@ -1,0 +1,8 @@
+db:
+  name: test
+  type: mysql
+  url: xxx
+  maxIdleCons: 10
+  maxOpenCons: 10
+  connMaxLifetime: 1000s
+  connMaxIdleTime: 60s

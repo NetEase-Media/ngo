@@ -1,0 +1,39 @@
+redis:
+  - name: client1
+    connType: client
+    addr: 1.1.1.1
+    username: test1
+    password: 66666
+    db: 0
+    maxRetries: 3
+    minRetryBackoff: 2s
+    maxRetryBackoff: 5s
+    dialTimeout: 5s
+    readTimeout: 10s
+    writeTimeout: 6s
+    poolSize: 20
+    minIdleConns: 10
+    maxConnAge: 10m
+    poolTimeout: 10s
+    idleTimeout: 15s
+    idleCheckFrequency: 3s
+  - name: cluster1
+    connType: cluster
+    addr:
+      - 20.1.1.1
+      - 20.1.1.2
+      - 20.1.1.3
+    username: test3
+    password: 888888
+    maxRetries: 5
+    minRetryBackoff: 20s
+    maxRetryBackoff: 50s
+    dialTimeout: 5s
+    readTimeout: 10s
+    writeTimeout: 6s
+    poolSize: 20
+    minIdleConns: 10
+    maxConnAge: 10m
+    poolTimeout: 10s
+    idleTimeout: 15s
+    idleCheckFrequency: 1s
