@@ -30,7 +30,5 @@ func NewClusterClient(opt *Options) *RedisContainer {
 		Opt:       *opt,
 		redisType: RedisTypeCluster,
 	}
-	baseClient.AddHook(newMetricHook(c))
-	baseClient.AddHook(newTracingHook(c))
 	return c
 }

@@ -3,9 +3,6 @@ package config
 import (
 	"testing"
 
-	_ "github.com/NetEase-Media/ngo/pkg/config/remote"
-	_ "github.com/NetEase-Media/ngo/pkg/config/remote/apollo"
-	_ "github.com/NetEase-Media/ngo/pkg/config/remote/etcd"
 	"github.com/NetEase-Media/ngo/pkg/log"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

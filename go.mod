@@ -30,7 +30,6 @@ require (
 	github.com/json-iterator/go v1.1.12
 	github.com/mitchellh/mapstructure v1.4.3
 	github.com/modern-go/reflect2 v1.0.2
-	github.com/opentracing/opentracing-go v1.2.0
 	github.com/philchia/agollo/v4 v4.1.3
 	github.com/pinpoint-apm/pinpoint-go-agent v0.5.1
 	github.com/pkg/errors v0.9.1

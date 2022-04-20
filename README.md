@@ -1,12 +1,11 @@
 # [Ngo](https://github.com/NetEase-Media/ngo)
 
 ## 简介
-Ngo是一个类似Java Spring Boot的框架，全部使用Go语言开发，主要目标是：
+Ngo是由网易传媒基础技术团队开源的一个类似Java Spring Boot的框架，全部使用Go语言开发，主要目标是：
 - 提供比原有Java框架更高的性能和更低的资源占用率
 - 尽量为业务开发者提供所需的全部工具库
-- 嵌入哨兵监控，自动上传监控数据
 - 自动加载配置和初始化程序环境，开发者能直接使用各种库
-- 与线上的健康检查、运维接口等运行环境匹配，无需用户手动开发配置
+- 提供预置的健康检查、上线、下线、状态查看等接口
 
 ## 使用
 使用 `go get -u github.com/NetEase-Media/ngo` 命令下载安装
@@ -17,9 +16,9 @@ go main
 package main
 
 import (
-	"github.com/NetEase-Media/ngo/pkg/ngo"
-	"github.com/NetEase-Media/ngo/pkg/server/http"
-	_ "github.com/NetEase-Media/ngo/pkg/server/http/admin"
+	_ "g.hz.netease.com/ngo/ngo/pkg/include"
+	"g.hz.netease.com/ngo/ngo/pkg/ngo"
+	"g.hz.netease.com/ngo/ngo/pkg/server/http"
 	"github.com/gin-gonic/gin"
 )
 
@@ -54,7 +53,6 @@ httpServer:
     * [启动](docs/start.md)
         * [yaml配置说明](docs/config.md)
         * [多环境配置&&配置导入](docs/yamlimport.md)
-        * [哨兵配置](docs/sentry-agent.md)
         * [pprof](docs/pprof.md)
     * [优雅停服](docs/gracefulshutdown.md)
     * [web中间件](docs/middleware.md)
@@ -66,7 +64,6 @@ httpServer:
 * [日志](docs/log.md)
 * [协议](docs/protocol.md)
 * [sentinel](docs/sentinel.md)
-* [tracer](docs/tracing.md)
 * [中间件client](docs/client.md)
     * [db](docs/db.md)
     * [httplib](docs/httplib.md)

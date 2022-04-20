@@ -2,19 +2,10 @@ package include
 
 // 不要改变顺序，按需编译
 import (
-	// config apollo
-	_ "github.com/NetEase-Media/ngo/pkg/config/remote/apollo"
-
 	// log
 	_ "github.com/NetEase-Media/ngo/pkg/log/r"
 	// service base info
 	_ "github.com/NetEase-Media/ngo/pkg/service/r"
-	// metrics
-	_ "github.com/NetEase-Media/ngo/pkg/metrics/r"
-	// tracing
-	_ "github.com/NetEase-Media/ngo/pkg/tracing/opentracing/optimus"
-	_ "github.com/NetEase-Media/ngo/pkg/tracing/pinpoint"
-	_ "github.com/NetEase-Media/ngo/pkg/tracing/r"
 
 	// sentinel
 	_ "github.com/NetEase-Media/ngo/pkg/sentinel/r"
@@ -33,6 +24,4 @@ import (
 	_ "github.com/NetEase-Media/ngo/pkg/job/xxljob/r"
 	// http server
 	_ "github.com/NetEase-Media/ngo/pkg/server/http/r"
-	// http admin
-	_ "github.com/NetEase-Media/ngo/pkg/server/http/admin"
 )

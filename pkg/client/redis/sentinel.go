@@ -32,6 +32,5 @@ func NewSentinelClient(opt *Options) *RedisContainer {
 		Opt:       *opt,
 		redisType: RedisTypeSentinel,
 	}
-	baseClient.AddHook(newTracingHook(c))
 	return c
 }
