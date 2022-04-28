@@ -7,6 +7,7 @@ import (
 
 	"github.com/NetEase-Media/ngo/pkg/hooks"
 	"github.com/NetEase-Media/ngo/pkg/log"
+	"github.com/NetEase-Media/ngo/pkg/signals"
 	"github.com/NetEase-Media/ngo/pkg/util"
 )
 
@@ -48,6 +49,7 @@ func (a *application) Init() {
 
 func (a *application) Start() {
 	ctx := context.Background()
+	a.waitSignals()
 	if a.PreStart != nil {
 		a.PreStart()
 	}
@@ -76,6 +78,16 @@ func (a *application) Stop() {
 			a.AfterStop()
 		}
 		a.cycle.Close()
+	})
+}
+
+func (a *application) waitSignals() {
+	signals.Shutdown(func(grace bool) {
+		if grace {
+			a.GracefulStop()
+		} else {
+			a.Stop()
+		}
 	})
 }
 
