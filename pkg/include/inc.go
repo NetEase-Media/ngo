@@ -24,4 +24,6 @@ import (
 	_ "github.com/NetEase-Media/ngo/pkg/job/xxljob/r"
 	// http server
 	_ "github.com/NetEase-Media/ngo/pkg/server/http/r"
+	// http admin
+	_ "github.com/NetEase-Media/ngo/pkg/server/http/admin"
 )
