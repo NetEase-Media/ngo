@@ -7,6 +7,10 @@ import (
 	// service base info
 	_ "github.com/NetEase-Media/ngo/pkg/service/r"
 
+	// tracing
+	_ "github.com/NetEase-Media/ngo/pkg/tracing/opentracing/optimus"
+	_ "github.com/NetEase-Media/ngo/pkg/tracing/r"
+
 	// sentinel
 	_ "github.com/NetEase-Media/ngo/pkg/sentinel/r"
 	// client
