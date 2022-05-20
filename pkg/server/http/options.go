@@ -16,8 +16,6 @@ type Options struct {
 
 type MiddlewaresOptions struct {
 	AccessLog  *AccessLogMwOptions
-	UrlMetrics *UrlMetricsMwOptions
-	JwtAuth    *JwtAuthMwOptions
 }
 
 func NewDefaultOptions() *Options {
@@ -27,8 +25,6 @@ func NewDefaultOptions() *Options {
 		ShutdownTimeout: 10 * time.Second,
 		Middlewares: &MiddlewaresOptions{
 			AccessLog:  NewDefaultAccessLogOptions(),
-			UrlMetrics: NewDefaultUrlMetricsOptions(),
-			JwtAuth:    NewDefaultAuthOptions(),
 		},
 	}
 }

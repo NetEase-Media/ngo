@@ -55,9 +55,6 @@ func New(opt *Options) (*Server, error) {
 	if opt.Middlewares.AccessLog.Enabled {
 		engine.Use(AccessLogMiddleware(opt.Middlewares.AccessLog))
 	}
-	if opt.Middlewares.UrlMetrics.Enabled {
-		engine.Use(UrlMetricsMiddleware(opt.Middlewares.UrlMetrics))
-	}
 	engine.Use(ServerTraceMiddleware())
 	engine.Use(ServerRecover())
 	engine.Use(SemicolonMiddleware())
