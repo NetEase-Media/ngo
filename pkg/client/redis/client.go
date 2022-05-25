@@ -31,5 +31,7 @@ func NewClient(opt *Options) *RedisContainer {
 		Opt:       *opt,
 		redisType: RedisTypeClient,
 	}
+	baseClient.AddHook(newMetricHook(c))
+	baseClient.AddHook(newTracingHook(c))
 	return c
 }
