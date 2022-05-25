@@ -7,12 +7,14 @@ import (
 	"net/textproto"
 	"net/url"
 	"regexp"
+	"runtime"
 	"strconv"
 	"strings"
 	"time"
 
 	"github.com/NetEase-Media/ngo/pkg/log"
 	"github.com/NetEase-Media/ngo/pkg/sentinel"
+	"github.com/NetEase-Media/ngo/pkg/tracing"
 	"github.com/alibaba/sentinel-golang/core/base"
 	"github.com/djimenez/iconv-go"
 	"github.com/valyala/fasthttp"
@@ -301,6 +303,31 @@ func (df *DataFlow) doInternal() (statusCode int, err error) {
 }
 
 func (df *DataFlow) Do(ctx context.Context) (statusCode int, err error) {
+	// TODO: 抽象成拦截器
+	if tracing.Enabled() {
+		// span trace start
+		span, c := tracing.StartSpanFromContext(ctx, "httpclient")
+		tracing.SpanKind.Set(span, "client")
+		tracing.SpanType.Set(span, "HTTP_CLIENT")
+		tracing.PluginType.Set(span, "fasthttp")
+		tracing.HttpClientRequestUrl.Set(span, string(df.req.URI().FullURI()))
+		tracing.HttpClientRequestMethod.Set(span, string(df.req.Header.Method()))
+		tracing.HttpClientRequestPath.Set(span, string(df.req.URI().Path()))
+		tracing.HttpClientRequestHost.Set(span, string(df.req.Host()))
+		tracing.Inject(c, &df.req.Header)
+
+		defer func() {
+			tracing.HttpClientResponseStatus.Set(span, statusCode)
+			if err != nil {
+				stack := make([]byte, 2048)
+				runtime.Stack(stack, false)
+				tracing.ExceptionName.Set(span, err)
+				tracing.ExceptionMessage.Set(span, err)
+				tracing.ExceptionStacktrace.Set(span, string(stack))
+			}
+			span.Finish()
+		}()
+	}
 	return df.doInternal()
 }
 
