@@ -7,7 +7,6 @@ import (
 	"time"
 
 	"github.com/NetEase-Media/ngo/pkg/log"
-	"github.com/NetEase-Media/ngo/pkg/metrics"
 	"github.com/Shopify/sarama"
 )
 
@@ -329,9 +328,6 @@ func (ch *consumerHandler) batchListen(listener BatchListener, session sarama.Co
 
 // collect 生成监控数据发送到收集器
 func (ch *consumerHandler) collect(topic string, partition int32, msgBytes int, cost time.Duration, err error) {
-	if !metrics.IsMetricsEnabled() {
-		return
-	}
 }
 
 type Acknowledgment struct {
