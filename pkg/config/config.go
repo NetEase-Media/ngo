@@ -7,6 +7,7 @@ import (
 	"reflect"
 	"strconv"
 
+	"github.com/NetEase-Media/ngo/pkg/config/remote"
 	"github.com/NetEase-Media/ngo/pkg/log"
 	"github.com/NetEase-Media/ngo/pkg/util/file"
 	"github.com/fsnotify/fsnotify"
@@ -15,6 +16,13 @@ import (
 
 type DecoderConfigOption = viper.DecoderConfigOption
 
+func init() {
+	viper.SupportedRemoteProviders = []string{remote.DataSourceApollo, remote.DataSourceEtcd, remote.DataSourceNeteaseConfig}
+}
+
+// New 创建配置，支持本地文件、apollo、etcd、网易配置中心
+// apollo 格式的例子："apollo://1.1.1.1:8080?appId=ngo&cluster=ngo-demo&namespaceNames=app.yaml,httpServer.yaml"
+// etcd 格式的例子："etcd://any.com?endpoints=1.1.1.1:2379&endpoints=10.201.209.134:2379&user_name=&password=&read_timeout_sec=3&key=brain/dev/brains/brainconf&with_prefix=false"
 func New(configAddr string, watch bool) (*Configuration, error) {
 	urlObj, err := url.Parse(configAddr)
 	if err != nil {
@@ -54,6 +62,18 @@ func New(configAddr string, watch bool) (*Configuration, error) {
 				}
 			}
 
+		}
+	case remote.DataSourceApollo, remote.DataSourceEtcd, remote.DataSourceNeteaseConfig:
+		if err := v.AddRemoteProvider(urlObj.Scheme, urlObj.Host, urlObj.RequestURI()); err != nil {
+			return nil, err
+		}
+		configType := "yaml"
+		if t := urlObj.Query().Get("configType"); t != "" {
+			configType = t
+		}
+		v.SetConfigType(configType)
+		if err := v.ReadRemoteConfig(); err != nil {
+			return nil, err
 		}
 	}
 	cfg := &Configuration{
@@ -102,6 +122,15 @@ func (c *Configuration) watchConfig() error {
 					}
 				})
 			}
+		case remote.DataSourceApollo, remote.DataSourceEtcd, remote.DataSourceNeteaseConfig:
+			if err := c.WatchRemoteConfigOnChannel(); err != nil {
+				return err
+			}
+			c.OnRemoteConfigChange(func(_ *viper.RemoteResponse) {
+				for _, change := range c.onChanges {
+					change(c)
+				}
+			})
 		}
 	}
 	return nil
