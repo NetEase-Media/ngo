@@ -1,0 +1,11 @@
+service:
+  appName: ngo-demo
+  clusterName: ngo-demo-local
+db:
+  - name: ngo
+    url: user:password@tcp(127.0.0.1:3306)/ngo?parseTime=True&loc=Local
+    maxIdleCons: 10
+    maxOpenCons: 100
+    connMaxLifetime: 1000s
+    connMaxIdleTime: 60s
+    debug: false
