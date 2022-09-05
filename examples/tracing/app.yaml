@@ -1,0 +1,35 @@
+service:
+  appName: ngo-demo
+  clusterName: ngo-demo-local
+
+httpServer:
+  port: 8080
+
+redis:
+  - name: redis01
+    connType: client
+    addr: 127.0.0.1:6379
+    password: rntestncr
+    db: 0
+
+db:
+  - name: db01
+    url: 3gteamuser:newsclient2013@)!#@tcp(10.158.10.13:3306)/newsclient?parseTime=True&loc=Local
+    maxIdleCons: 10
+    maxOpenCons: 100
+    connMaxLifetime: 1000s
+    connMaxIdleTime: 60s
+    debug: false
+
+tracing:
+  enabled: true
+  type: pinpoint
+  pinpoint:
+    applicationName: ngo
+    collector:
+      host: 10.189.126.21
+      agentPort: 31440
+      spanPort: 31226
+      statPort: 31950
+    sampling:
+      rate: 1  # 100%
