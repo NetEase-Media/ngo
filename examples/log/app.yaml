@@ -1,0 +1,8 @@
+service:
+  appName: ngo-demo
+  clusterName: ngo-demo-local
+
+log:
+  - name: default
+    fileName: ngo
+    level: info

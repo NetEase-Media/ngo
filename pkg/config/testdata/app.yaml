@@ -1,0 +1,8 @@
+service:
+  appName: ngo
+  clusterName: ngo-online
+
+configImports:
+  - redis.yaml
+  - db.yaml
+  - others.properties

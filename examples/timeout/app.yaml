@@ -1,3 +1,6 @@
 service:
   appName: ngo-demo
   clusterName: ngo-demo-local
+
+httpServer:
+  port: 8080

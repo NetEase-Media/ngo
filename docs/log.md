@@ -53,10 +53,10 @@ log:
 #### 代码中使用
 ```go
 //如果使用默认logger,和之前类似
-import "github.com/NetEase-Media/ngo/adapter/log"
+import "github.com/NetEase-Media/ngo/pkg/log"
 log.Infof("123")
 //如果使用自定义logger,需要以下面这种方式获取
-import "github.com/NetEase-Media/ngo/adapter/log"
+import "github.com/NetEase-Media/ngo/pkg/log"
 
 log.GetLogger("haha").Infof("gungungun.....")
 ```

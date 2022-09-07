@@ -20,20 +20,12 @@
 #### 加载配置文件目录下的其他配置文件
 ```go
 // 导包
-import "github.com/NetEase-Media/ngo/adapter/config"
+import "github.com/NetEase-Media/ngo/pkg/config"
 
 
 // 读取配置目录中viper支持的文件，例如:json,yaml,yml,toml,properties,props,prop,hcl,ini等
 // 返回值为(*Config, error) 
-c, err := config.NewFromConfigFile("data.properties")
-
-// 读取配置目录中的其他格式配置文件内容
-// 返回值为([]byte, error)
-buffer, err := config.ReadConfigFile("data.xml")
-
-//获取配置目录中配置文件的绝对路径
-// 返回值为string
-string := config.GetConfigFilePath("data.yaml")
+c, err := config.New("data.properties")
 
 ```
 
@@ -63,7 +55,7 @@ kafka1:
 可以再代码中用以下方法获取配置
 ```go
 //导包
-import "github.com/NetEase-Media/ngo/adapter/config"
+import "github.com/NetEase-Media/ngo/pkg/config"
 
 //获取为自定义的struct
 config.Unmarshal("kafka1", kafkaStructPointer)
