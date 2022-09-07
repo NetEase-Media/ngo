@@ -10,11 +10,12 @@ httpServer:
       enabled: true
       pattern: '%h %l %u %t "%r" %s %b "%{Referer}i" "%{User-Agent}i" %D'
       path: ./log
+      fileName: access.log
       noFile: true
-      filePathPattern:
-      maxAge: 240h
-      rotationTime: 24h
-      rotationSize: 2048
+      maxAge: 7
+      maxBackups: 7
+      maxSize: 1024
+      compress: false
     jwtAuth:
       enabled: false
       authHeader: Authorization
@@ -35,17 +36,17 @@ log:
   - name: default
     level: info
     packageLevel:
-            - gorm.io/gorm: error
+      - gorm.io/gorm: error
     path: ./log
     errorPath: ./error
     fileName: ngo
     writableStack: false
     format: txt
     noFile: true
-    filePathPattern:
-    maxAge: 240h
-    rotationTime: 24h
-    rotationSize: 2048
+    maxAge: 7
+    maxBackups: 7
+    maxSize: 1024
+    compress: false
 db:
   - name: test
     type: mysql
@@ -127,7 +128,7 @@ kafka:
       group: g1
       enableAutoCommit: true
       autoCommitInterval: 1s
-      initialOffset: -1 # OffsetNewest=-1  OffsetNewest=-2
+      initialOffset: -1 # OffsetNewest=-1  OffsetOldest=-2
       sessionTimeout: 10s
       minFetchBytes: 1
       defaultFetchBytes: 1048576 #1M
@@ -177,3 +178,20 @@ multicache:
   - type: redis
     priority: 1
     defaultRedis: client1
+zookeeper:
+  - name: client1
+    addr:
+      - 127.0.0.1:2181
+    sessionTimeout: 10s
+tracing:
+  enabled: true
+  type: pinpoint
+  pinpoint:
+    applicationName: ngo
+    collector:
+      host: 1.1.1.1
+      agentPort: 31440
+      spanPort: 31226
+      statPort: 31950
+    sampling:
+      rate: 1  # 100%

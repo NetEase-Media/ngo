@@ -1,11 +1,12 @@
 # [Ngo](https://github.com/NetEase-Media/ngo)
 
 ## 简介
-Ngo是由网易传媒基础技术团队开源的一个类似Java Spring Boot的框架，全部使用Go语言开发，主要目标是：
+Ngo是一个类似Java Spring Boot的框架，全部使用Go语言开发，主要目标是：
 - 提供比原有Java框架更高的性能和更低的资源占用率
 - 尽量为业务开发者提供所需的全部工具库
+- 嵌入哨兵监控，自动上传监控数据
 - 自动加载配置和初始化程序环境，开发者能直接使用各种库
-- 提供预置的健康检查、上线、下线、状态查看等接口
+- 与线上的健康检查、运维接口等运行环境匹配，无需用户手动开发配置
 
 ## 使用
 使用 `go get -u github.com/NetEase-Media/ngo` 命令下载安装
@@ -16,30 +17,20 @@ go main
 package main
 
 import (
-	"context"
-	"github.com/NetEase-Media/ngo/adapter/log"
-	"github.com/NetEase-Media/ngo/adapter/protocol"
-	"github.com/NetEase-Media/ngo/server"
+	"github.com/NetEase-Media/ngo/pkg/ngo"
+	"github.com/NetEase-Media/ngo/pkg/server/http"
+	_ "github.com/NetEase-Media/ngo/pkg/server/http/admin"
 	"github.com/gin-gonic/gin"
 )
 
 // go run . -c ./app.yaml
 func main() {
-	s := server.Init()
-	s.PreStart = func() error {
-		log.Info("do pre-start...")
-		return nil
-	}
-
-	s.PreStop = func(ctx context.Context) error {
-		log.Info("do pre-stop...")
-		return nil
-	}
-
-	s.AddRoute(server.GET, "/hello", func(ctx *gin.Context) {
-		ctx.JSON(protocol.JsonBody("hello"))
+	app := ngo.Init()
+	s := http.Get()
+	s.AddRoute(http.GET, "/", func(ctx *gin.Context) {
+		ctx.String(http.StatusOK, "hello world!")
 	})
-	s.Start()
+	app.Start()
 }
 ```
 配置文件app.yaml
@@ -47,6 +38,8 @@ func main() {
 service:
   appName: ngo-demo
   clusterName: ngo-demo-local
+httpServer:
+  port: 8080
 
 ```
 
@@ -61,6 +54,7 @@ service:
     * [启动](docs/start.md)
         * [yaml配置说明](docs/config.md)
         * [多环境配置&&配置导入](docs/yamlimport.md)
+        * [哨兵配置](docs/sentry-agent.md)
         * [pprof](docs/pprof.md)
     * [优雅停服](docs/gracefulshutdown.md)
     * [web中间件](docs/middleware.md)
@@ -72,6 +66,7 @@ service:
 * [日志](docs/log.md)
 * [协议](docs/protocol.md)
 * [sentinel](docs/sentinel.md)
+* [tracer](docs/tracing.md)
 * [中间件client](docs/client.md)
     * [db](docs/db.md)
     * [httplib](docs/httplib.md)
@@ -80,8 +75,10 @@ service:
     * [多级缓存](docs/multicache.md)
     * [redis](docs/redis.md)
     * [分布式锁](docs/dlock.md)
+    * [zookeeper](docs/zookeeper.md)
 * [定时任务]()
     * [cron定时任务](docs/cron.md)
+    * [k8s job](docs/k8sjob.md)
     * [xxljob](docs/xxljob.md)
 * [工具](docs/util.md)
 

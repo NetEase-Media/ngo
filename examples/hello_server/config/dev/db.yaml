@@ -1,5 +1,0 @@
-db1:
-  host: localhost
-  port: 9090
-configImports:
- - other.yaml

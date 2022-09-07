@@ -1,10 +1,13 @@
 service:
   appName: ngo-demo
   clusterName: ngo-demo-local
+
+httpServer:
+  port: 8080
 sentinel:
   flowRules:
-    resource: "abc"
-    tokenCalculateStrategy: 0 #flow.Direct
-    controlBehavior: 0 #flow.Reject
-    threshold: 1
-    statIntervalInMs: 5000
+    -  resource: "abc"
+       tokenCalculateStrategy: 0 #flow.Direct
+       controlBehavior: 0 #flow.Reject
+       threshold: 1
+       statIntervalInMs: 5000

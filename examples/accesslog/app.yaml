@@ -5,5 +5,10 @@ httpServer:
   middlewares:
     accesslog:
       path: ./log
-      noFile: false
+      fileName: access.log
+      noFile: true
       pattern: '%h %l %u %{%Y-%m-%d %f}t "%r%q" %s %b "%{Referer}i" "%{User-Agent}i" %D'
+      maxAge: 1
+      maxBackups: 3
+      maxSize: 1
+      compress: true

@@ -1,0 +1,12 @@
+service:
+  appName: ngo-demo
+  clusterName: ngo-demo-local
+
+httpServer:
+  port: 8080
+
+log:
+  - name: l1
+
+configImports:
+  - test.yaml
