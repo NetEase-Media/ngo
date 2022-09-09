@@ -4,8 +4,6 @@ SCRIPT_DIR = $(shell pwd)/etc/script
 PKG_LIST   = $(shell go list ./... | grep -v /vendor/ | grep -v /examples)
 
 lint_code: ## Lint the files
-	export REVIEWDOG_GITLAB_API_TOKEN=-o3DkhbPcVoUYBSxwpfe; \
-	export GITLAB_API=https://g.hz.netease.com/api/v4; \
 	export REVIEWDOG_INSECURE_SKIP_VERIFY=true; \
 	reviewdog -reporter=gitlab-mr-discussion
 
