@@ -58,6 +58,6 @@ log.Infof("123")
 //如果使用自定义logger,需要以下面这种方式获取
 import "github.com/NetEase-Media/ngo/pkg/log"
 
-log.GetLogger("haha").Infof("gungungun.....")
+log.GetLogger("haha").Infof("123.....")
 ```
 
