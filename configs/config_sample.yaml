@@ -24,8 +24,8 @@ httpServer:
       refreshTokenExpiresIn: 7200
       encryption: HS256
       oidc:
-        clientId: xxxxxxxxx
-        clientSecret: xxxxxxxxx
+        clientId: xxx
+        clientSecret: xxx
         encryption: HS256
       ignorePaths:
         - /xxx
