@@ -34,7 +34,7 @@
 - %T - 处理请求的时间，单位为秒
 - %I - 当前请求的线(协)程名`暂不支持`
 
-另外，Access Log中也支持cookie，请求header，响应headers，Session或者其他在ServletRequest中的对象的信息。格式遵循apache语法：
+另外，Access Log中也支持Cookie，请求header，响应headers，Session或者其他在ServletRequest中的对象的信息。格式遵循apache语法：
 - %{xxx}i 请求headers的信息
 - %{xxx}o 响应headers的信息
 - %{xxx}c 请求cookie的信息
