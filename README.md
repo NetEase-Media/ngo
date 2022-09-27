@@ -1,7 +1,7 @@
 # [Ngo](https://github.com/NetEase-Media/ngo)
 
 ## 简介
-Ngo是一个类似Java Spring Boot的框架，全部使用Go语言开发，主要目标是：
+Ngo是一个类似Java Spring Boot的框架，全部使用Golang语言开发，主要目标是：
 - 提供比原有Java框架更高的性能和更低的资源占用率
 - 尽量为业务开发者提供所需的全部工具库
 - 嵌入哨兵监控，自动上传监控数据
