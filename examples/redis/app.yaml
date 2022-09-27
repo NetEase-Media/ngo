@@ -1,0 +1,10 @@
+service:
+  appName: ngo-demo
+  clusterName: ngo-demo-local
+redis:
+  - name: redis01
+    connType: client
+    addr:
+      - 127.0.0.1:6379
+    password: rntestncr
+    db: 0

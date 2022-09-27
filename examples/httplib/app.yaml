@@ -1,0 +1,16 @@
+service:
+  appName: ngo-demo
+  clusterName: ngo-demo-local
+
+httpClient:
+  noDefaultUserAgentHeader: true
+  maxConnsPerHost: 41
+  maxIdleConnDuration: 50s
+  maxConnDuration: 10s
+  maxIdemponentCallAttempts: 55
+  readBufferSize: 4096
+  writeBufferSize: 128
+  readTimeout: 4s
+  writeTimeout: 5s
+  maxResponseBodySize: 2300000
+  maxConnWaitTimeout: 10

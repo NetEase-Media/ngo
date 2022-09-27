@@ -1,0 +1,8 @@
+time="2022-04-23T10:00:32+08:00" level=info msg=123
+time="2022-04-23T10:00:32+08:00" level=error msg="Errorf test"
+time="2022-04-24T14:58:25+08:00" level=info msg=123
+time="2022-04-24T14:58:25+08:00" level=error msg="Errorf test"
+time="2022-04-24T15:02:36+08:00" level=info msg=123
+time="2022-04-24T15:02:36+08:00" level=error msg="Errorf test"
+time="2022-04-24T15:04:46+08:00" level=info msg=123
+time="2022-04-24T15:04:46+08:00" level=error msg="Errorf test"

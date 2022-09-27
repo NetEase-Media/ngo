@@ -1,0 +1,10 @@
+service:
+  appName: ngo-demo
+  clusterName: ngo-demo-local
+  httpServer:
+    port: 8080
+zookeeper:
+  - name: zookeeper01
+    addr: 
+      - 127.0.0.1:2181
+    sessionTimeout: 5s
