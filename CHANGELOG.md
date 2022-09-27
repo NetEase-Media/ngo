@@ -10,4 +10,5 @@
 - 重构log，底层实现为zap
 - 重构config
 - 重构tracing，支持pinpoint
+- 修改部分文档
 ### Bug 修复
