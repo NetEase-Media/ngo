@@ -4,7 +4,7 @@
 ## web server
 
 ### 模块说明
-ngo web server 集成了httpserver（基于gin）、pprof server、哨兵以及一些常用的组件，启动需要配合yaml配置文件。
+ngo web server 集成了httpserver（基于gin），pprof server，哨兵以及一些常用的组件，启动需要配合yaml配置文件。
 
 * [启动](start.md)
     * [yaml配置说明](config.md)
