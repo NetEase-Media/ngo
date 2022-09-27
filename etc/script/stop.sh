@@ -18,7 +18,7 @@ then
 fi
 echo "$(date '+%Y-%m-%d %H:%M:%S') begin to send term to $pid ..."
 kill -15 $pid
-echo "$(date '+%Y-%m-%d %H:%M:%S') sign has sended, wait $pid ..."
+echo "$(date '+%Y-%m-%d %H:%M:%S') sign has sended,please wait $pid ..."
 timeout $to tail --pid=$pid -f /dev/null
 status=$?
 if [ $status -eq 124 ]
