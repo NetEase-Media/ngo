@@ -11,14 +11,14 @@ Ngo是由网易传媒基础技术团队开源的一个类似Java Spring Boot的�
 使用 `go get -u github.com/NetEase-Media/ngo` 命令下载安装
 
 ## 快速开始
-go main
+`main.go`
 ```go
 package main
 
 import (
-	_ "g.hz.netease.com/ngo/ngo/pkg/include"
-	"g.hz.netease.com/ngo/ngo/pkg/ngo"
-	"g.hz.netease.com/ngo/ngo/pkg/server/http"
+	_ "github.com/NetEase-Media/ngo/pkg/include"
+	"github.com/NetEase-Media/ngo/pkg/ngo"
+	"github.com/NetEase-Media/ngo/pkg/server/http"
 	"github.com/gin-gonic/gin"
 )
 
@@ -32,7 +32,7 @@ func main() {
 	app.Start()
 }
 ```
-配置文件app.yaml
+配置文件 `app.yaml`
 ```yaml
 service:
   appName: ngo-demo
