@@ -1,5 +1,8 @@
 # [Ngo](https://github.com/NetEase-Media/ngo)
 
+## 项目状态
+#### 目前项目已经被归档，目前我们重构了`ngo`项目，让它更加的方便易用，也更为优秀易扩展，更名为`easy-ngo`. 并且将代码库迁移到了：https://github.com/NetEase-Media/easy-ngo，欢迎大家继续使用。
+
 ## 简介
 Ngo是由网易传媒基础技术团队开源的一个类似Java Spring Boot的框架，全部使用Go语言开发，主要目标是：
 - 提供比原有Java框架更高的性能和更低的资源占用率
